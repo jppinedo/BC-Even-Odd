@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Juan Pablo Pinedo">
+  <title>Even / Odd</title>
+</head>
+
+<body>
+  <script type="text/javascript">
+    let playerName = null;
+    let playing = true;
+    let isErrorStage = false;
+    let calculate = false;
+    let userInput = 'y';
+    let scoreArr = [];
+
+    while(playing) {
+      let newInput;
+
+      if (!playerName || !playerName.length) {
+        const tip = '\nEnter a valid text of one or more characters';
+        newInput = prompt(`Please enter your name ${isErrorStage ? tip : ''}`);
+        isErrorStage = !newInput || !newInput.length;
+        playerName = isErrorStage ? null : newInput;
+
+      } else {
+        if(userInput === 'y') { 
+          const tip = '\nOnly enter "even" or "odd" in the prompt. Other values won\'t work.';
+          newInput = prompt(`Enter "even" or "odds"${isErrorStage ? tip : ''} `);
+          isErrorStage = !(newInput === 'even' || newInput === 'odd');
+          console.log('isErrorStage: ', isErrorStage)
+          userInput = isErrorStage ? userInput : newInput;
+
+        } else if(!calculate && (userInput === 'even' || userInput === 'odd')) {
+          console.log('even odd')
+          let count = 1;
+          while(count <= 3) {
+            alert(count);
+            count++;
+          }
+          calculate = true;
+
+        } else if(calculate) {
+          const value1 = Math.floor(Math.random() * 4) + 1;
+          const value2 = Math.floor(Math.random() * 4) + 1;
+          const sum = value1 + value2;
+          const outcome = (sum % 2 === 0) ? "even" : "odd";
+          const playerWins = outcome === userInput;
+          scoreArr.push(playerWins);
+          calculate = false;
+          userInput = 'end'
+
+        } else {
+          console.log('stopped playing');
+          playing = false;
+        }
+      }
+    }
+
+  </script>
+</body>
+</html>
